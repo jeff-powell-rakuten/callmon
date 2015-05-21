@@ -1,17 +1,23 @@
-#####################################################
-# jeff.powell@rakuten.com                           #
-#                                                   #
-# 28/11/2014                                        #
-#                                                   #
-# move this file to /etc/cron.day                   #
-#                                                   #
-#####################################################
+###################################################################################
+#                                                                                 #
+# Author : jeff.powell@rakuten.com                                                #
+#                                                                                 #
+# Created : 28/11/2014                                                            #
+# Updated : 21/05/2015                                                            #
+#                                                                                 #
+# Source : https://github.com/jeff-powell-rakuten                                 #
+#                                                                                 #
+# Install Instructions :                                                          #
+# https://github.com/jeff-powell-rakuten/callmon/blob/master/jcallmon-install.txt #
+#                                                                                 #
+#                                                                                 #
+###################################################################################
 
 <?php
 
-create_graph("calls-halfday-wall.png",  "-12h",         "ROOST-VGW SIP CALLS last 12 hours",             "300", "1100");
-create_graph("calls-month-wall.png",    "-1m",          "ROOST-VGW SIP CALLS last 1 month",              "150", "1100");
-create_graph("calls-year-wall.png",     "-1y",          "ROOST-VGW SIP CALLS last 1 year",               "150", "1100");
+create_graph("calls-halfday-wall.png",  "-12h",         "SIP CALLS last 12 hours",             "200", "1100");
+create_graph("calls-month-wall.png",    "-1m",          "SIP CALLS last 1 month",              "150", "1100");
+create_graph("calls-year-wall.png",     "-1y",          "SIP CALLS last 1 year",               "150", "1100");
 
 echo "<html><head>";
 echo "<meta http-equiv=\"refresh\" content=\"30\">";

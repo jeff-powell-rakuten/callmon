@@ -1,17 +1,23 @@
-#####################################################
-# jeff.powell@rakuten.com							#
-#													#
-# 28/11/2014										#
-#													#
-#													#
-# 													#
-#####################################################
+###################################################################################
+#                                                                                 #
+# Author : jeff.powell@rakuten.com                                                #
+#                                                                                 #
+# Created : 28/11/2014                                                            #
+# Updated : 21/05/2015                                                            #
+#                                                                                 #
+# Source : https://github.com/jeff-powell-rakuten                                 #
+#                                                                                 #
+# Install Instructions :                                                          #
+# https://github.com/jeff-powell-rakuten/callmon/blob/master/jcallmon-install.txt #
+#                                                                                 #
+#                                                                                 #
+###################################################################################
 
 <?php
 
 $now = time();
 
-$snmpreply=snmp2_walk("yyy", "xxx", "1.3.6.1.4.1.9.9.63.1.3.8.2");
+$snmpreply=snmp2_walk("<<ENTER IP HERE>>", "<<ENTER SNMP COMMUNITY STRING HERE>>", "1.3.6.1.4.1.9.9.63.1.3.8.2");
 
 $dataline=explode( ":", $snmpreply[0]);
 
