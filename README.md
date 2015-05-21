@@ -1,8 +1,6 @@
-#################################
-# jeff.powell@rakuten.com				#
-#	                              #
-# 28/11/2014										#      
-#################################
 
+ jeff.powell@rakuten.com
 
-# callmon
+ 28/11/2014
+
+ jcallmon
