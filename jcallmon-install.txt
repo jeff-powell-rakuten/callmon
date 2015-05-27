@@ -42,20 +42,7 @@ clone callmon from github
 
 configure
 
-	configure selinux
-
-	?sestatus
-	?sudo setenforce 0
-	?sestatus
-
-
 	sudo chown -R apache:apache /opt/jcallmon
-
-	?sudo chown apache:apache /opt/jcallmon/data
-	?sudo chown apache:apache /opt/jcallmon/www
-	?sudo chown apache:apache /opt/jcallmon/jcallmon-poller.php
-
-	sudo chcon -Rv --type=httpd_sys_content_t /opt/jcallmon/www
 	
 	cd /opt/jcallmon/data/
 	sudo chmod u+x jcallmon-initrrd.sh
@@ -63,8 +50,6 @@ configure
 	sudo ./jcallmon-initrrd.sh
 	sudo chown apache:apache /opt/jcallmon/data/calldb.rrd
 	
-	?????sudo chmod a+rw calldb.rrd
-
 	vi /opt/jcallmon/jcallmon-poller.php 
 
 		enter the IP and comunity string of the target server
@@ -73,35 +58,32 @@ configure
 		add the line
 		* * * * * root php /opt/jcallmon/jcallmon-poller.php > /dev/null
 
-	????sudo service crond restart
-
+	sudo chcon -Rv --type=httpd_sys_content_t /opt/jcallmon/www
 	cd /opt/jcallmon/www
-	??touch calls-halfday-wall.png calls-month-wall.png calls-year-wall.png
-	??chown apache:apache /opt/jcallmon/www/*
-	#chmod u+wrx /opt/jcallmon/www
-	
-	sudo php /opt/jcallmon/www/jcallmon-wall.php
-	sudo chown apache:apache /opt/jcallmon/www/*
+
+	sudo chcon -Rv --type=httpd_sys_content_t /opt/jcallmon/www
 
 	sudo mv /opt/jcallmon/www/jcallmon-vhost.conf /etc/httpd/conf.d/jcallmon-vhost.conf
 	sudo service httpd reload
 
 	browse to : 
 
-		http://localhost/jcallmon-wall.php
+		http://localhost/jcallmon/jcallmon-wall.php
 
 	:-)
 
 
 
 
-trouble shoot
+troubleshooting
 
-	manually run poller 
+	manually run poller examine output
 
 		php /opt/jcallmon/jcallmon-poller.php
 
+	manually run web page examine output
 
+		php /opt/jcallmon/www/jcallmon-wall.php
 
-
+	email me : jeff.powell@rakuten.com 
 
