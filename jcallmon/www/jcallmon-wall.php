@@ -1,3 +1,4 @@
+<?php
 ###################################################################################
 #                                                                                 #
 # Author : jeff.powell@rakuten.com                                                #
@@ -13,7 +14,6 @@
 #                                                                                 #
 ###################################################################################
 
-<?php
 
 create_graph("calls-halfday-wall.png",  "-12h",         "SIP CALLS last 12 hours",             "200", "1100");
 create_graph("calls-month-wall.png",    "-1m",          "SIP CALLS last 1 month",              "150", "1100");
