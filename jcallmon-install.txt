@@ -3,7 +3,7 @@
 # Author : jeff.powell@rakuten.com                                                #
 #                                                                                 #
 # Created : 28/11/2014                                                            #
-# Updated : 21/05/2015                                                            #
+# Updated : 27/05/2015                                                            #
 #                                                                                 #
 # Source : https://github.com/jeff-powell-rakuten                                 #
 #                                                                                 #
@@ -22,8 +22,8 @@ install utility packages
 install apache and php
 
 	sudo yum install httpd php php-snmp
-	service httpd start
-	chkconfig httpd on
+	sudo service httpd start
+	sudo chkconfig httpd on
 
 install rrdtool
 
@@ -33,33 +33,64 @@ install rrdtool
 clone callmon from github
 
 	cd /opt
-	wget https://github.com/jeff-powell-rakuten/callmon/archive/master.zip
-	unzip /opt/master.zip
-	mv /opt/callmon-master/jcallmon /opt/jcallmon
-	rm -ry /opt/master.zip /opt/callmon-master
+	sudo wget https://github.com/jeff-powell-rakuten/callmon/archive/master.zip
+	sudo unzip /opt/master.zip
+	sudo mv /opt/callmon-master/jcallmon /opt/
+	sudo rm -r /opt/master.zip /opt/callmon-master
 
 
 
 configure
 
-	cd /opt/callmon/jcallmon/data/
-	chmod g+x jcallmon-initrrd.sh
-	./jcallmon-initrrd.sh
-	chmod g+rw calldb.rrd
+	configure selinux
+
+	?sestatus
+	?sudo setenforce 0
+	?sestatus
+
+
+	sudo chown -R apache:apache /opt/jcallmon
+
+	?sudo chown apache:apache /opt/jcallmon/data
+	?sudo chown apache:apache /opt/jcallmon/www
+	?sudo chown apache:apache /opt/jcallmon/jcallmon-poller.php
+
+	sudo chcon -Rv --type=httpd_sys_content_t /opt/jcallmon/www
+	
+	cd /opt/jcallmon/data/
+	sudo chmod u+x jcallmon-initrrd.sh
+
+	sudo ./jcallmon-initrrd.sh
+	sudo chown apache:apache /opt/jcallmon/data/calldb.rrd
+	
+	?????sudo chmod a+rw calldb.rrd
 
 	vi /opt/jcallmon/jcallmon-poller.php 
 
 		enter the IP and comunity string of the target server
 
-	mv /opt/jcallmon/jcallmon-cron /etc/cron.d/jcallmon-cron
-	service crond reload
+	sudo vi /etc/crontab
+		add the line
+		* * * * * root php /opt/jcallmon/jcallmon-poller.php > /dev/null
+
+	????sudo service crond restart
 
 	cd /opt/jcallmon/www
-	touch calls-halfday-wall.png calls-month-wall.png calls-year-wall.png
-	chown apache:apache /opt/jcallmon/www/*
+	??touch calls-halfday-wall.png calls-month-wall.png calls-year-wall.png
+	??chown apache:apache /opt/jcallmon/www/*
 	#chmod u+wrx /opt/jcallmon/www
-	mv /opt/jcallmon/www/jcallmon-vhost.conf /etc/httpd/conf.d/jcallmon-vhost.conf
-	service httpd reload
+	
+	sudo php /opt/jcallmon/www/jcallmon-wall.php
+	sudo chown apache:apache /opt/jcallmon/www/*
+
+	sudo mv /opt/jcallmon/www/jcallmon-vhost.conf /etc/httpd/conf.d/jcallmon-vhost.conf
+	sudo service httpd reload
+
+	browse to : 
+
+		http://localhost/jcallmon-wall.php
+
+	:-)
 
 
 
