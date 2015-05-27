@@ -52,7 +52,7 @@ configure
 	
 	vi /opt/jcallmon/jcallmon-poller.php 
 
-		enter the IP and comunity string of the target server
+		enter the IP and community string of the target server
 
 	sudo vi /etc/crontab
 		add the line
