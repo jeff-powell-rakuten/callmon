@@ -3,7 +3,7 @@
 # Author : jeff.powell@rakuten.com                                                #
 #                                                                                 #
 # Created : 28/11/2014                                                            #
-# Updated : 21/05/2015                                                            #
+# Updated : 27/05/2015                                                            #
 #                                                                                 #
 # Source : https://github.com/jeff-powell-rakuten                                 #
 #                                                                                 #
@@ -72,7 +72,6 @@ function create_graph($output, $start, $title, $height, $width) {
     "AREA:transcalldatamax#b6d14b40",
     "LINE4:transcalldatamax#a0b842:Active SIP Calls",
     "COMMENT:\\n",
-#    "GPRINT:transcalldatamax:LAST:Calls Now %6.2lf",
     "GPRINT:transcalldatamax:MAX:Calls Max %6.2lf"
   );
 
